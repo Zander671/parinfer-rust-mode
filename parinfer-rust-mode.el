@@ -619,7 +619,10 @@ CHANGES."
                    parinfer-rust--in-debug)
           (parinfer-rust-debug "./parinfer-rust-debug.txt" options answer))
         (if error-p
-            (message "%s" error-p) ;; TODO handle errors
+            ;; TODO handle errors
+            (message "Problem on line %s: %s"
+                     (plist-get error-p :line_no)
+                     (plist-get error-p :message))
           ;; This stops Emacs from flickering when scrolling
           (if (not (string-equal parinfer-rust--previous-buffer-text replacement-string))
               (save-mark-and-excursion
